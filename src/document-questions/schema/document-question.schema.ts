@@ -6,7 +6,7 @@ import {
   CorrectionMethodEnum,
   QuestionTypeEnum,
   ResponseMethodEnum,
-} from 'src/enum/app.enum';
+} from 'src/common/enum/app.enum';
 
 @Schema({ timestamps: true })
 export class DocumentQuestion {

@@ -39,8 +39,14 @@ export class DocumentFilesController {
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     try {
-      const fileName = file.originalname.replace(/\s/g, '-');
       const fileType = fileTypeConvert(file.mimetype);
+      if (fileType === 'UNKNOWN') {
+        throw new HttpException(
+          'File type is not supportted',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      const fileName = file.originalname.replace(/\s/g, '-');
       const path = file.destination + '/' + file.filename.replace(/\s/g, '-');
 
       const documentFile = await this.documentFilesService.create({

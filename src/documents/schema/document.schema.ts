@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { DocumentEnum } from 'src/enum/app.enum';
+import { DocumentEnum } from 'src/common/enum/app.enum';
 
 @Schema({ timestamps: true })
 export class Document {

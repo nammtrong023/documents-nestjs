@@ -1,4 +1,4 @@
-import { QuestionTypeEnum } from 'src/enum/app.enum';
+import { QuestionTypeEnum } from 'src/common/enum/app.enum';
 
 export type BoolOptions = {
   type: QuestionTypeEnum.Bool;

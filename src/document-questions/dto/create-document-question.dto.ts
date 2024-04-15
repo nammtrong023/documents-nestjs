@@ -10,7 +10,7 @@ import {
   CorrectionMethodEnum,
   QuestionTypeEnum,
   ResponseMethodEnum,
-} from 'src/enum/app.enum';
+} from 'src/common/enum/app.enum';
 
 export class CreateDocumentQuestionDto {
   @IsString()

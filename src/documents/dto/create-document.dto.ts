@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { IsObjectId } from 'nestjs-object-id';
-import { DocumentEnum } from 'src/enum/app.enum';
+import { DocumentEnum } from 'src/common/enum/app.enum';
 
 export class CreateDocumentDto {
   @IsString()

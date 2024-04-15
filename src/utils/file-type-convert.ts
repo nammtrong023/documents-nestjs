@@ -26,7 +26,7 @@ export function fileTypeConvert(mimetype: string) {
       fileType = 'SHEET';
       break;
     default:
-      fileType = 'Unknown Type';
+      fileType = 'UNKNOWN';
   }
 
   return fileType;
