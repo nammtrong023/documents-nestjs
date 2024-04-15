@@ -15,10 +15,9 @@ import {
 import { DocumentFilesService } from './document-files.service';
 import { CreateDocumentFileDto } from './dto/create-document-file.dto';
 import { UpdateDocumentFileDto } from './dto/update-document-file.dto';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { FileUploadDto } from 'src/upload-data/dto/file-upload.dto';
+import { ApiConsumes } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { storageConfig } from 'src/config/store-config';
+import { storageConfig } from 'src/config/storage-config';
 import { Public } from 'src/common/decorator/public.decorator';
 import { fileTypeConvert } from 'src/utils/file-type-convert';
 
@@ -30,10 +29,6 @@ export class DocumentFilesController {
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    description: 'Upload document file',
-    type: FileUploadDto,
-  })
   @UseInterceptors(
     FileInterceptor('document', { storage: storageConfig('documents') }),
   )
