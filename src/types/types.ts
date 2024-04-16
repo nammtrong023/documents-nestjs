@@ -1,3 +1,5 @@
+import { FileTypeEnum } from 'src/common/enum/app.enum';
+
 export type Tokens = {
   accessToken: string;
   refreshToken: string;
@@ -18,6 +20,7 @@ export type JwtPayloadWithAtToken = JwtPayload & { accessToken: string };
 export type JwtPayloadWithTokens = JwtPayload & Tokens;
 
 export type PaginationRequest = {
+  filter?: FileTypeEnum;
   limit?: number;
   page?: number;
   search?: string;

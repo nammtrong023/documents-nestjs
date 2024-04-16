@@ -13,7 +13,7 @@ export class DocumentTextsService {
     @InjectDocumentTextModel() private documentTextModel: Model<DocumentText>,
     private documentService: DocumentsService,
   ) {}
-  async create(createDocumentTextDto: CreateDocumentTextDto) {
+  async create(createDocumentTextDto?: CreateDocumentTextDto) {
     return new this.documentTextModel(createDocumentTextDto);
   }
 

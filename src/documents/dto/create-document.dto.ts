@@ -1,18 +1,12 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { IsObjectId } from 'nestjs-object-id';
-import { DocumentEnum } from 'src/common/enum/app.enum';
+import { IsEnum, IsNotEmpty, ValidateIf } from 'class-validator';
+import { DocumentEnum, QuestionTypeEnum } from 'src/common/enum/app.enum';
 
 export class CreateDocumentDto {
-  @IsString()
-  title: string;
-
-  @IsString()
-  description: string;
-
   @IsEnum(DocumentEnum)
   documentType: DocumentEnum;
 
+  @ValidateIf((o) => o.documentType === DocumentEnum.DocumentQuestion)
   @IsNotEmpty()
-  @IsObjectId()
-  documentItemId: string;
+  @IsEnum(QuestionTypeEnum)
+  questionType: QuestionTypeEnum;
 }

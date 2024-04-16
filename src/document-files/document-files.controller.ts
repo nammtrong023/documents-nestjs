@@ -1,9 +1,7 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   HttpCode,
@@ -14,25 +12,26 @@ import {
 } from '@nestjs/common';
 import { DocumentFilesService } from './document-files.service';
 import { CreateDocumentFileDto } from './dto/create-document-file.dto';
-import { UpdateDocumentFileDto } from './dto/update-document-file.dto';
 import { ApiConsumes } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { storageConfig } from 'src/config/storage-config';
-import { Public } from 'src/common/decorator/public.decorator';
 import { fileTypeConvert } from 'src/utils/file-type-convert';
 
 @Controller('document-files')
 export class DocumentFilesController {
   constructor(private readonly documentFilesService: DocumentFilesService) {}
 
-  @Public()
-  @Post()
+  @Post('documents/:documentId/upload')
   @HttpCode(HttpStatus.OK)
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('document', { storage: storageConfig('documents') }),
   )
-  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  async uploadFile(
+    @Param() documentId: string,
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
     try {
       const fileType = fileTypeConvert(file.mimetype);
       if (fileType === 'UNKNOWN') {
@@ -44,10 +43,11 @@ export class DocumentFilesController {
       const fileName = file.originalname.replace(/\s/g, '-');
       const path = file.destination + '/' + file.filename.replace(/\s/g, '-');
 
-      const documentFile = await this.documentFilesService.create({
+      const documentFile = await this.documentFilesService.uploadFile({
         fileName,
         fileType,
         path,
+        documentId,
       });
 
       return documentFile;
@@ -58,26 +58,10 @@ export class DocumentFilesController {
       );
     }
   }
+
+  @Post()
   create(@Body() createDocumentFileDto: CreateDocumentFileDto) {
     return this.documentFilesService.create(createDocumentFileDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.documentFilesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.documentFilesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateDocumentFileDto: UpdateDocumentFileDto,
-  ) {
-    return this.documentFilesService.update(id, updateDocumentFileDto);
   }
 
   @Delete(':id')

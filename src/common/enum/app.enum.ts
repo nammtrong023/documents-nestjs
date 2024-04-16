@@ -29,3 +29,14 @@ export enum CorrectionMethodEnum {
   Instructors = 'instructors',
   LeanersManager = 'leanersManager',
 }
+
+export enum FileTypeEnum {
+  IMG = 'IMG',
+  GIF = 'GID',
+  VID = 'VID',
+  PDF = 'PDF',
+  DOC = 'DOC',
+  PPT = 'PPT',
+  SHEET = 'SHEET',
+  UNKNOWN = 'UNKNOWN',
+}

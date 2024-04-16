@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { DocumentQuestionsService } from './document-questions.service';
-import { CreateDocumentQuestionDto } from './dto/create-document-question.dto';
 import { UpdateDocumentQuestionDto } from './dto/update-document-question.dto';
+import { QuestionTypeEnum } from 'src/common/enum/app.enum';
 
 @Controller('document-questions')
 export class DocumentQuestionsController {
@@ -18,8 +18,10 @@ export class DocumentQuestionsController {
   ) {}
 
   @Post()
-  create(@Body() createDocumentQuestionDto: CreateDocumentQuestionDto) {
-    return this.documentQuestionsService.create(createDocumentQuestionDto);
+  create(@Body() questionType: QuestionTypeEnum) {
+    {
+      return this.documentQuestionsService.create(questionType);
+    }
   }
 
   @Get()

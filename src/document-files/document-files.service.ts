@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDocumentFileDto } from './dto/create-document-file.dto';
-import { UpdateDocumentFileDto } from './dto/update-document-file.dto';
+import {
+  CreateDocumentFileDto,
+  UploadFileDto,
+} from './dto/create-document-file.dto';
 import { InjectDocumentFileModel } from 'src/common/decorator/inject-model.decorator';
 import { Model } from 'mongoose';
 import { DocumentFile } from './schema/document-file.schema.entity';
+import { FileTypeEnum } from 'src/common/enum/app.enum';
+import { DataNotFoundException } from 'src/exception/data-not-found';
 
 @Injectable()
 export class DocumentFilesService {
@@ -11,24 +15,31 @@ export class DocumentFilesService {
     @InjectDocumentFileModel() private documentFileModel: Model<DocumentFile>,
   ) {}
 
-  async create(createDocumentFileDto: CreateDocumentFileDto) {
-    return (await this.documentFileModel.create(createDocumentFileDto)).save();
+  async uploadFile(uploadFileDto: UploadFileDto) {
+    return (
+      await this.documentFileModel.create({
+        ...uploadFileDto,
+        document: uploadFileDto.documentId,
+      })
+    ).save();
   }
 
-  findAll() {
-    return `This action returns all documentFiles`;
+  async create(createFileDto: CreateDocumentFileDto) {
+    return (await this.documentFileModel.create(createFileDto)).save();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} documentFile`;
+  async filterByFilteType(filter: FileTypeEnum) {
+    return await this.documentFileModel.findOne({
+      fileType: filter,
+    });
   }
-
-  update(id: string, updateDocumentFileDto: UpdateDocumentFileDto) {
-    console.log(updateDocumentFileDto);
-    return `This action updates a #${id} documentFile`;
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} documentFile`;
+  async remove(id: string) {
+    return this.documentFileModel
+      .findByIdAndDelete(id)
+      .then((deletedDocument) => {
+        if (!deletedDocument) {
+          throw new DataNotFoundException('Document file', 'id', id);
+        }
+      });
   }
 }

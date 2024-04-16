@@ -3,7 +3,7 @@ import { IsObjectId } from 'nestjs-object-id';
 
 export class CreateDocumentTextDto {
   @IsString()
-  content: string;
+  content?: string;
 
   @IsArray({ each: true })
   @IsOptional()

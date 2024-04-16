@@ -5,13 +5,13 @@ import { Document } from 'src/documents/schema/document.schema';
 @Schema({ timestamps: true })
 export class DocumentFile {
   @Prop({ required: true })
-  fileName: string;
+  fileName?: string;
 
   @Prop({ required: true })
-  fileType: string;
+  fileType?: string;
 
   @Prop({ required: true })
-  path: string;
+  path?: string;
 
   @Prop({ required: false })
   resouceUrl?: string;
