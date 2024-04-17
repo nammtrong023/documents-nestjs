@@ -8,6 +8,7 @@ import { DocumentFilesModule } from './document-files/document-files.module';
 import { DocumentQuestionsModule } from './document-questions/document-questions.module';
 import { DocumentTextsModule } from './document-texts/document-texts.module';
 import { MONGODB_CONNECTION } from './config/connection-config';
+import { CriteriaModule } from './criteria/criteria.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { MONGODB_CONNECTION } from './config/connection-config';
     DocumentFilesModule,
     DocumentQuestionsModule,
     DocumentTextsModule,
+    CriteriaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

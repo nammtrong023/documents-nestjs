@@ -44,3 +44,16 @@ export class DocumentQuestion {
 }
 export const DocumentQuestionSchema =
   SchemaFactory.createForClass(DocumentQuestion);
+
+export interface DocumentQuestionModel {
+  question: string;
+  isShuffled: boolean;
+  answerContent: string;
+  responseMethod: ResponseMethodEnum;
+  correctionMethod: CorrectionMethodEnum;
+  options: any;
+  answer: any;
+  questionType: QuestionTypeEnum;
+  documentFiles: DocumentFile[];
+  document: Document;
+}

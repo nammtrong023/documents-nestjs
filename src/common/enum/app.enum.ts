@@ -4,7 +4,7 @@ export enum QuestionTypeEnum {
   Bool = 'bool',
   Linker = 'linker',
   Ordered = 'ordered',
-  Fill = 'fill',
+  FillBlank = 'fillBlank',
   Pick = 'pick',
   Open = 'open',
   VideoPitch = 'videoPitch',
@@ -29,6 +29,7 @@ export enum CorrectionMethodEnum {
   Instructors = 'instructors',
   LeanersManager = 'leanersManager',
 }
+
 
 export enum FileTypeEnum {
   IMG = 'IMG',

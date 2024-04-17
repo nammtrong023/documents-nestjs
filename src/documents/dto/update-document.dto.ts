@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -35,10 +34,11 @@ export class UpdateDocumentDto {
   @ValidateIf((c) => c.documentType === DocumentEnum.DocumentQuestion)
   questionType?: QuestionTypeEnum;
 
-  @IsBoolean()
   @IsNotEmpty()
-  @ValidateIf((c) => c.questionType === QuestionTypeEnum.Bool)
-  boolAnswer?: boolean;
+  options: any;
+
+  @IsNotEmpty()
+  answer: any;
 
   @IsNotEmpty()
   @IsObjectId()
